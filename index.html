@@ -287,7 +287,7 @@
     display:none;align-items:center;justify-content:center;
   }
   .lightbox.open{display:flex;}
-  .lightbox img{max-width:94vw;max-height:92vh;object-fit:contain;}
+  .lightbox img{max-width:94vw;max-height:92vh;object-fit:contain;touch-action:pan-y;}
   .lb-btn{
     position:absolute;background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;
     width:48px;height:48px;font-size:20px;cursor:pointer;line-height:1;
@@ -808,6 +808,36 @@
   document.getElementById("lbPrev").addEventListener("click", function(e){ e.stopPropagation(); show(idx - 1); });
   document.getElementById("lbNext").addEventListener("click", function(e){ e.stopPropagation(); show(idx + 1); });
   lb.addEventListener("click", function(e){ if (e.target === lb) closeLb(); });
+  /* ---------- lightbox swipe: touch swipe + mouse drag, same as prev/next ---------- */
+  var swipeX = null, swipeY = null;
+  function swipeEnd(dx, dy){
+    if (swipeX === null) return;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)){
+      if (dx < 0) show(idx + 1); else show(idx - 1);
+    }
+    swipeX = null; swipeY = null;
+  }
+  lb.addEventListener("touchstart", function(e){
+    if (!lb.classList.contains("open")) return;
+    var t = e.changedTouches[0];
+    swipeX = t.clientX; swipeY = t.clientY;
+  }, {passive:true});
+  lb.addEventListener("touchend", function(e){
+    if (swipeX === null) return;
+    var t = e.changedTouches[0];
+    swipeEnd(t.clientX - swipeX, t.clientY - swipeY);
+  }, {passive:true});
+  lb.addEventListener("touchcancel", function(){ swipeX = null; swipeY = null; }, {passive:true});
+  var swipeMouse = false;
+  lbImg.addEventListener("mousedown", function(e){
+    if (!lb.classList.contains("open")) return;
+    swipeX = e.clientX; swipeY = e.clientY; swipeMouse = true;
+  });
+  document.addEventListener("mouseup", function(e){
+    if (!swipeMouse || !lb.classList.contains("open")) return;
+    swipeMouse = false;
+    swipeEnd(e.clientX - swipeX, e.clientY - swipeY);
+  });
   document.addEventListener("keydown", function(e){
     if (!lb.classList.contains("open")) return;
     if (e.key === "Escape") closeLb();
