@@ -251,7 +251,7 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyeYeJLDi_GgVa3z3f8f63
     });
     var submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) submitBtn.disabled = true;
-    fetch(SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, mode: 'no-cors', body: JSON.stringify({ ref: ref, contact: contact, email: email, repeatRef: repeatRef, recipient: recipient, phone: phone, address: address, note: note, items: payloadItems }) }).then(function(){
+    fetch(SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, mode: 'no-cors', body: JSON.stringify({ ref: ref, contact: contact, email: email, repeatRef: repeatRef, recipient: recipient, phone: phone, address: address, note: note, items: payloadItems, source: (window.__orderSource || '') }) }).then(function(){
       document.getElementById("successBox").querySelector("p").textContent = "提交成功";
       document.getElementById("refNo").textContent = ref;
       document.getElementById("mailBody").textContent = lastMailText;
@@ -268,19 +268,41 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyeYeJLDi_GgVa3z3f8f63
       if (submitBtn) submitBtn.disabled = false;
     });
   });
-  /* ---------- multi-page v2: order-items from a work page ---------- */
+  /* ---------- multi-page v2: order-items + source work from a work page ---------- */
   (function(){
-    var m = (location.hash || '').match(/^#order-items=([a-z,]+)$/);
-    if (!m) return;
+    var raw = (location.hash || '').replace(/^#/, '');
+    var params = {};
+    raw.split('&').forEach(function(pair){
+      var eq = pair.indexOf('=');
+      if (eq > 0) params[pair.slice(0, eq)] = pair.slice(eq + 1);
+    });
+    if (!params['order-items']) return;
     var CAT2IDX = { socks: 0, underwear: 2, cloth: 3, shirt: 4, trousers: 5, leather: 6 };
-    m[1].split(',').forEach(function(cat){
+    params['order-items'].split(',').forEach(function(cat){
       var i = CAT2IDX[cat];
       if (i === undefined) return;
       var cb = document.getElementById('pick-' + i);
       if (cb && !cb.checked) { cb.checked = true; cb.dispatchEvent(new Event('change')); }
     });
-    var ord = document.getElementById('order');
-    if (ord) ord.scrollIntoView();
+    var srcTitle = '';
+    if (params['source']) {
+      try { srcTitle = decodeURIComponent(params['source']); } catch (e) { srcTitle = ''; }
+    }
+    if (srcTitle) {
+      window.__orderSource = srcTitle;
+      var ord = document.getElementById('order');
+      if (ord) {
+        var note = document.createElement('p');
+        note.id = 'orderSource';
+        note.style.cssText = 'color:#fff;font-size:15px;line-height:1.8;margin:0 0 16px;';
+        note.textContent = '订这篇同款：' + srcTitle + '（已勾好对应单品，备注里可补充细节）';
+        var form = ord.querySelector('form');
+        if (form && form.parentNode) form.parentNode.insertBefore(note, form);
+        else ord.insertBefore(note, ord.firstChild);
+      }
+    }
+    var ord2 = document.getElementById('order');
+    if (ord2) ord2.scrollIntoView();
   })();
 
 })();
