@@ -347,7 +347,10 @@
   .order-btn{display:inline-block;margin-left:10px;padding:11px 20px;border:1px solid rgba(255,255,255,.55);color:#fff;text-decoration:none;font-size:13px;letter-spacing:.14em;background:transparent;}
   .order-btn:hover{background:#fff;color:#000;border-color:#fff;}
   .mp-list{max-width:1180px;margin:0 auto;padding:20px clamp(20px,5vw,72px);}
-  .mp-card{border:1px solid var(--line);background:var(--panel);padding:24px;margin-bottom:16px;}
+  .mp-card{border:1px solid var(--line);background:var(--panel);padding:24px;margin-bottom:16px;display:flex;gap:16px;align-items:flex-start;}
+  .mp-thumb{width:120px;height:120px;object-fit:cover;border-radius:10px;flex-shrink:0;}
+  .mp-text{flex:1;min-width:0;}
+  @media (max-width:600px){.mp-thumb{width:84px;height:84px;}.mp-card{padding:16px;gap:12px;}}
   .mp-card h3{margin:0 0 8px;font-size:20px;line-height:1.4;}
   .mp-card p{margin:0 0 14px;color:var(--dim);font-size:14px;line-height:1.7;}
   .mp-card a{color:#fff;}
