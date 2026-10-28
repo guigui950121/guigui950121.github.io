@@ -389,7 +389,22 @@
   @media (max-width:600px){
     .sample-strip{font-size:11px;padding:6px 12px;letter-spacing:.14em;}
     .site-nav{flex-wrap:wrap;}
-    .nav-toggle-label{display:block;margin-left:auto;color:#fff;font-size:14px;letter-spacing:.2em;cursor:pointer;padding:6px 2px;}
+    .nav-toggle-label{display:block;margin-left:auto;cursor:pointer;padding:8px 4px;}
+    .nav-toggle-label span{display:block;width:24px;height:2px;background:#fff;margin:5px 0;transition:transform .3s ease,opacity .3s ease;}
+    .nav-toggle:checked + .nav-toggle-label span:nth-child(1){transform:translateY(12px) rotate(45deg);}
+    .nav-toggle:checked + .nav-toggle-label span:nth-child(2){opacity:0;}
+    .nav-toggle:checked + .nav-toggle-label span:nth-child(3){transform:translateY(-12px) rotate(-45deg);}
     .nav-links{display:none;width:100%;flex-direction:column;gap:10px;padding-top:12px;}
     .nav-toggle:checked ~ .nav-links{display:flex;}
   }
+  /* ---------- 高端细节 2026-10-28 晚：页脚 X 图标、favicon、滚动与焦点细节 ---------- */
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto;}}
+  ::selection{background:#fff;color:#000;}
+  a:focus-visible,button:focus-visible{outline:1px solid #fff;outline-offset:3px;}
+  @media (prefers-reduced-motion: no-preference){.scroll-hint{animation:hintPulse 2.4s ease-in-out infinite;}}
+  @keyframes hintPulse{0%,100%{opacity:.55}50%{opacity:1}}
+  .foot-social{display:flex;align-items:center;}
+  .foot-social a{display:block;}
+  .foot-social svg{width:19px;height:19px;fill:#fff;display:block;}
+  .foot-social a:hover svg{fill:var(--dim);}
