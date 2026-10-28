@@ -188,6 +188,13 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyeYeJLDi_GgVa3z3f8f63
       err.classList.add("show");
       return;
     }
+    var capAnswerEl = document.getElementById("capAnswer");
+    var capAnswer = capAnswerEl ? capAnswerEl.value.trim() : "";
+    if (!capAnswer) {
+      err.textContent = "请填写验证码。";
+      err.classList.add("show");
+      return;
+    }
     err.classList.remove("show");
 
     /* order reference number: date + sequence, generated on this page */
@@ -251,13 +258,28 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyeYeJLDi_GgVa3z3f8f63
     });
     var submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) submitBtn.disabled = true;
-    fetch(SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, mode: 'no-cors', body: JSON.stringify({ ref: ref, contact: contact, email: email, repeatRef: repeatRef, recipient: recipient, phone: phone, address: address, note: note, items: payloadItems, source: (window.__orderSource || '') }) }).then(function(){
-      document.getElementById("successBox").querySelector("p").textContent = "提交成功";
-      document.getElementById("refNo").textContent = ref;
-      document.getElementById("mailBody").textContent = lastMailText;
-      form.style.display = "none";
-      document.getElementById("successBox").classList.add("show");
-      document.getElementById("successBox").scrollIntoView({ behavior: "smooth", block: "center" });
+    fetch(SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ ref: ref, contact: contact, email: email, repeatRef: repeatRef, recipient: recipient, phone: phone, address: address, note: note, items: payloadItems, source: (window.__orderSource || ''), captchaToken: capToken, captchaAnswer: capAnswer }) }).then(function(r){ return r.json(); }).then(function(res){
+      if (res && res.ok) {
+        document.getElementById("successBox").querySelector("p").textContent = "提交成功";
+        document.getElementById("refNo").textContent = ref;
+        document.getElementById("mailBody").textContent = lastMailText;
+        form.style.display = "none";
+        document.getElementById("successBox").classList.add("show");
+        document.getElementById("successBox").scrollIntoView({ behavior: "smooth", block: "center" });
+      } else if (res && (res.error === 'captcha' || res.error === 'captcha_expired')) {
+        err.textContent = (res.error === 'captcha_expired') ? "验证码已过期，请重新填写。" : "验证码不对，请重新填写。";
+        err.classList.add("show");
+        refreshCaptcha();
+        if (submitBtn) submitBtn.disabled = false;
+      } else {
+        document.getElementById("successBox").querySelector("p").textContent = "提交未成功，订单信息已生成，请先复制保存，再点再次提交重试";
+        document.getElementById("refNo").textContent = ref;
+        document.getElementById("mailBody").textContent = lastMailText;
+        document.getElementById("successBox").classList.add("show");
+        err.textContent = "提交失败，请点再次提交重试；也可以先复制订单信息保存。";
+        err.classList.add("show");
+        if (submitBtn) submitBtn.disabled = false;
+      }
     }).catch(function(){
       document.getElementById("successBox").querySelector("p").textContent = "提交未成功，订单信息已生成，请先复制保存，再点再次提交重试";
       document.getElementById("refNo").textContent = ref;
@@ -268,6 +290,20 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyeYeJLDi_GgVa3z3f8f63
       if (submitBtn) submitBtn.disabled = false;
     });
   });
+  /* ---------- captcha：challenge 取图 ---------- */
+  var capToken = "";
+  function refreshCaptcha(){
+    var img = document.getElementById("capImg");
+    fetch(SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'challenge' }) }).then(function(r){ return r.json(); }).then(function(res){
+      if (res && res.ok && res.img) { capToken = res.token; if (img) img.src = 'images/captcha/' + res.img; }
+    }).catch(function(){});
+  }
+  (function(){
+    var btn = document.getElementById("capRefresh");
+    if (btn) btn.addEventListener("click", refreshCaptcha);
+  })();
+  refreshCaptcha();
+
   /* ---------- multi-page v2: order-items + source work from a work page ---------- */
   (function(){
     var raw = (location.hash || '').replace(/^#/, '');
