@@ -689,7 +689,7 @@
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox" role="dialog" aria-label="图片放大查看">
-  <img id="lbImg" alt="" />
+  <img id="lbImg" alt="" draggable="false" />
   <button class="lb-btn lb-close" id="lbClose" aria-label="关闭">✕</button>
   <button class="lb-btn lb-prev" id="lbPrev" aria-label="上一张">‹</button>
   <button class="lb-btn lb-next" id="lbNext" aria-label="下一张">›</button>
@@ -829,6 +829,9 @@
   }, {passive:true});
   lb.addEventListener("touchcancel", function(){ swipeX = null; swipeY = null; }, {passive:true});
   var swipeMouse = false;
+  /* images are natively draggable: without this, a mouse drag starts a
+     drag-and-drop instead of a mouseup, so drag-to-switch would never fire */
+  lbImg.addEventListener("dragstart", function(e){ e.preventDefault(); });
   lbImg.addEventListener("mousedown", function(e){
     if (!lb.classList.contains("open")) return;
     swipeX = e.clientX; swipeY = e.clientY; swipeMouse = true;
