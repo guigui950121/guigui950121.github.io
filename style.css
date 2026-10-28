@@ -367,3 +367,5 @@
   #backTop.show{display:block;}
   .mp-filter{max-width:1180px;margin:0 auto;padding:10px clamp(20px,5vw,72px) 0;}
   .lightbox img{touch-action:none;}
+  /* 2026-10-28 定制页首屏重叠修复：顶栏是 fixed 悬浮、导航背景向下渐隐透明，定制页首个区块 #pricing 只有 60px 上边距，Pricing 小字顶到了品牌字底下；与 .page-head 的 150px 看齐，只影响定制页 */
+  #pricing{padding-top:150px;}
