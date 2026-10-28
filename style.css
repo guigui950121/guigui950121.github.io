@@ -433,3 +433,7 @@
   }
   .trust-strip{border:0;padding:18px clamp(20px,5vw,72px);font-size:12px;letter-spacing:.06em;color:var(--faint);}
   .trust-strip b{color:var(--dim);font-size:14px;}
+  /* ---------- 字号层级收紧 2026-10-28 晚（第 6 项）：标题并为一档、微小字号统一 ---------- */
+  .mp-card h3,.platform-card-body h3,.faq-q,.price-name{font-size:clamp(19px,2.4vw,26px);}
+  .scroll-hint{font-size:12px;}
+  .pick-name,.page-head p,.latest-title{font-size:15px;}
