@@ -807,13 +807,20 @@
   document.getElementById("lbClose").addEventListener("click", closeLb);
   document.getElementById("lbPrev").addEventListener("click", function(e){ e.stopPropagation(); show(idx - 1); });
   document.getElementById("lbNext").addEventListener("click", function(e){ e.stopPropagation(); show(idx + 1); });
-  lb.addEventListener("click", function(e){ if (e.target === lb) closeLb(); });
+  var suppressLbClick = false;
+  lb.addEventListener("click", function(e){
+    if (suppressLbClick){ suppressLbClick = false; return; }
+    if (e.target === lb) closeLb();
+  });
   /* ---------- lightbox swipe: touch swipe + mouse drag, same as prev/next ---------- */
   var swipeX = null, swipeY = null;
   function swipeEnd(dx, dy){
     if (swipeX === null) return;
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)){
       if (dx < 0) show(idx + 1); else show(idx - 1);
+      /* a drag that ends outside the image would otherwise also fire a
+         backdrop click and close the lightbox right after switching */
+      suppressLbClick = true;
     }
     swipeX = null; swipeY = null;
   }
