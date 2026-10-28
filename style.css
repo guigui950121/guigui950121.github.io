@@ -61,7 +61,7 @@
     background:linear-gradient(180deg,rgba(0,0,0,.34) 0%,rgba(0,0,0,0) 26%,rgba(0,0,0,0) 55%,rgba(0,0,0,.66) 100%);
   }
   .panel.hero::after{
-    background:linear-gradient(180deg,rgba(0,0,0,.52) 0%,rgba(0,0,0,.30) 30%,rgba(0,0,0,.34) 58%,rgba(0,0,0,.82) 100%);
+    background:linear-gradient(180deg,rgba(0,0,0,.52) 0%,rgba(0,0,0,.30) 30%,rgba(0,0,0,.34) 55%,rgba(0,0,0,.85) 78%,rgba(0,0,0,1) 100%);
   }
   .panel-cap{
     position:absolute;left:clamp(20px,5vw,72px);bottom:clamp(34px,7vh,72px);z-index:2;max-width:min(760px,86vw);
