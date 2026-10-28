@@ -437,3 +437,6 @@
   .mp-card h3,.platform-card-body h3,.faq-q,.price-name{font-size:clamp(19px,2.4vw,26px);}
   .scroll-hint{font-size:12px;}
   .pick-name,.page-head p,.latest-title{font-size:15px;}
+  /* ---------- 移动端防缩放 2026-10-28 晚（数量键连点放大 bug）：禁双击缩放＋输入框 16px 防聚焦缩放 ---------- */
+  button,a,input,select,textarea{touch-action:manipulation;}
+  .pick-qty input,.search-input{font-size:16px;}
