@@ -239,6 +239,45 @@
     window.addEventListener("scroll", function(){ bt.classList.toggle("show", window.scrollY > 600); }, {passive:true});
     bt.addEventListener("click", function(){ window.scrollTo({top:0, behavior:"smooth"}); });
   })();
+  /* ---------- panel 图片断网自愈 2026-10-28 晚（黑屏面板）：失败自动换 jpg／带退避重试 ---------- */
+  (function(){
+    function jpgFor(u){
+      if (!u || u.indexOf('.webp') < 0) return null;
+      return u.replace(/\.webp(\?.*)?$/, '.jpg$1');
+    }
+    function arm(img){
+      if (img._retryArmed) return;
+      img._retryArmed = true;
+      img._retryStep = 0;
+      img.addEventListener('error', function(){
+        var step = img._retryStep;
+        if (step >= 3) return;
+        img._retryStep = step + 1;
+        var cur = img.currentSrc || img.getAttribute('src') || '';
+        if (!cur) return;
+        var next = null;
+        if (step === 0) next = jpgFor(cur);
+        if (!next) next = cur.split('?')[0] + '?retry=' + step + '&t=' + Date.now();
+        setTimeout(function(){
+          img.removeAttribute('srcset');
+          var pic = (img.parentNode && img.parentNode.tagName === 'PICTURE') ? img.parentNode : null;
+          if (pic) { var ss = pic.querySelectorAll('source'); for (var i = 0; i < ss.length; i++) ss[i].removeAttribute('srcset'); }
+          img.src = next;
+        }, step === 0 ? 0 : 1500 * step);
+      });
+    }
+    function init(){
+      var imgs = document.querySelectorAll('img.ph');
+      for (var i = 0; i < imgs.length; i++) {
+        arm(imgs[i]);
+        if (imgs[i].complete && imgs[i].naturalWidth === 0) {
+          (function(im){ setTimeout(function(){ im.dispatchEvent(new Event('error')); }, 100); })(imgs[i]);
+        }
+      }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
   /* ---------- professional batch 2026-10-28: MP search + year filter ---------- */
   (function(){
     var mpSearch = document.getElementById("mpSearch");
