@@ -392,8 +392,8 @@
   .live-player{position:relative;width:100%;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden;}
   .live-player iframe{max-width:100%;border:0;}
   .live-fallback{text-align:center;max-width:680px;padding:56px 24px;margin:0;}
-  .live-fallback-big{color:#fff;font-size:clamp(28px,6vw,48px);font-weight:900;line-height:1.4;margin:0;}
-  .live-fallback-small{color:var(--dim);font-size:15px;line-height:1.8;margin:18px 0 0;}
+  .live-fallback-big{color:#fff;font-size:clamp(24px,5vw,40px);font-weight:900;line-height:1.4;margin:0;}
+  .live-fallback-small{color:var(--dim);font-size:13px;line-height:1.8;margin:18px 0 0;}
   .live-note{max-width:1180px;margin:18px auto 0;padding:0 clamp(20px,5vw,72px);color:var(--dim);font-size:13px;letter-spacing:.04em;}
   .nav-toggle{position:absolute;opacity:0;width:1px;height:1px;}
   .nav-toggle-label{display:none;}
