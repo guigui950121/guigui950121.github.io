@@ -132,6 +132,11 @@
          backdrop click and close the lightbox right after switching */
       suppressLbClick = true;
     }
+    /* drag the photo downward to dismiss (swipe-down-to-close) */
+    if (dy > 80 && Math.abs(dy) > Math.abs(dx)){
+      closeLb();
+      suppressLbClick = true;
+    }
     swipeX = null; swipeY = null;
   }
   lb.addEventListener("touchstart", function(e){
