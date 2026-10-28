@@ -384,7 +384,7 @@
   .order-steps li b{display:block;font-size:15px;margin-bottom:6px;}
   .order-steps li span{color:var(--dim);font-size:13px;line-height:1.7;}
   .order-perks{margin:18px 0 0;color:var(--dim);font-size:14px;letter-spacing:.06em;line-height:1.8;}
-  .live-section{padding:clamp(64px,10vh,110px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#000;}
+  .live-section{padding:clamp(64px,10vh,110px) 0;background:#000;}
   .live-head{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,72px);}
   .live-head .sec-kicker{display:flex;align-items:center;gap:10px;}
   .live-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#FF3B30;margin-right:0;}
