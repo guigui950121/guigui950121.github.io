@@ -289,5 +289,47 @@
       if (t) sendStat('order_click');
     });
   })();
+  /* ---------- live section 2026-10-28: X slow-live embed, two-state ---------- */
+  (function(){
+    var sec = document.getElementById("liveSection");
+    if (!sec) return;
+    var player = document.getElementById("livePlayer");
+    var fallback = document.getElementById("liveFallback");
+    var sub = document.getElementById("liveSub");
+    var note = document.getElementById("liveNote");
+    function showFallback(){ if (fallback) fallback.style.display = ""; }
+    fetch("live.json", {cache: "no-store"}).then(function(r){ return r.json(); }).then(function(data){
+      if (!data || data.status !== "live" || !data.broadcast_url) { showFallback(); return; }
+      if (sub && data.title) sub.textContent = data.title;
+      if (note && data.source) note.textContent = "来源：" + data.source + "（公有领域画面）· 播放器由 X 提供";
+      var done = false;
+      function fail(){ if (!done) { done = true; showFallback(); } }
+      var timer = setTimeout(fail, 8000);
+      var s = document.createElement("script");
+      s.async = true; s.src = "https://platform.x.com/widgets.js";
+      s.onerror = function(){ clearTimeout(timer); fail(); };
+      s.onload = function(){
+        var m = /broadcasts[/]([A-Za-z0-9]+)/.exec(data.broadcast_url || "");
+        if (!m) { clearTimeout(timer); fail(); return; }
+        var bq = document.createElement("blockquote");
+        bq.className = "twitter-broadcast";
+        bq.setAttribute("data-broadcast-id", m[1]);
+        var a = document.createElement("a");
+        a.href = data.broadcast_url; a.textContent = "Broadcast";
+        bq.appendChild(a);
+        player.appendChild(bq);
+        if (window.twttr && twttr.widgets && twttr.widgets.load) { twttr.widgets.load(player); }
+        var tries = 0;
+        var iv = setInterval(function(){
+          tries++;
+          if (player.querySelector("iframe")) {
+            clearInterval(iv); clearTimeout(timer); done = true;
+            if (fallback) fallback.style.display = "none";
+          } else if (tries >= 10) { clearInterval(iv); clearTimeout(timer); fail(); }
+        }, 500);
+      };
+      document.head.appendChild(s);
+    }).catch(function(){ showFallback(); });
+  })();
 
 })();
