@@ -1,5 +1,6 @@
 (function(){
 /* ---------- order form ---------- */
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyeYeJLDi_GgVa3z3f8f63Q82Al1h-6NEbshppt_gan7IbrxhR4crPHzwjHDlxw_MO6/exec';
 
   var ITEMS = [
     { name: "原味棉袜", price: 48 },
@@ -234,19 +235,38 @@
       "手机号：" + phone + "\n" +
       "收货地址：" + address + "\n\n" +
       "接下来：\n" +
-      "1. 请按下面的收款码扫码付款；\n" +
-      "2. 付款后加微信，备注订单参考号，并发付款截图；\n" +
+      "1. 请按附件里的收款码扫码付款；\n" +
+      "2. 付款后按附件里的加微信二维码加微信，备注订单参考号，并发付款截图；\n" +
       "3. 我们确认收款后，会在微信上和你确认细节和交期；\n" +
       "4. 确认后安排发货。\n\n" +
-      "收款码位：上线时放入你的收款码\n" +
-      "加微信二维码／微信号位：上线时放入你的加微信二维码／微信号\n\n" +
       "谢谢。";
 
-    document.getElementById("refNo").textContent = ref;
-    document.getElementById("mailBody").textContent = lastMailText;
-    form.style.display = "none";
-    document.getElementById("successBox").classList.add("show");
-    document.getElementById("successBox").scrollIntoView({ behavior: "smooth", block: "center" });
+    var payloadItems = [];
+    ITEMS.forEach(function(item){
+      if (item._cb.checked) {
+        var q = parseInt(item._qty.value, 10);
+        if (isNaN(q) || q < 1) q = 1;
+        payloadItems.push({ name: item.name, price: item.price, qty: q });
+      }
+    });
+    var submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+    fetch(SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, mode: 'no-cors', body: JSON.stringify({ ref: ref, contact: contact, email: email, repeatRef: repeatRef, recipient: recipient, phone: phone, address: address, note: note, items: payloadItems }) }).then(function(){
+      document.getElementById("successBox").querySelector("p").textContent = "提交成功";
+      document.getElementById("refNo").textContent = ref;
+      document.getElementById("mailBody").textContent = lastMailText;
+      form.style.display = "none";
+      document.getElementById("successBox").classList.add("show");
+      document.getElementById("successBox").scrollIntoView({ behavior: "smooth", block: "center" });
+    }).catch(function(){
+      document.getElementById("successBox").querySelector("p").textContent = "提交未成功，订单信息已生成，请先复制保存，再点再次提交重试";
+      document.getElementById("refNo").textContent = ref;
+      document.getElementById("mailBody").textContent = lastMailText;
+      document.getElementById("successBox").classList.add("show");
+      err.textContent = "提交失败，网络未连通，请点再次提交重试；也可以先复制订单信息保存。";
+      err.classList.add("show");
+      if (submitBtn) submitBtn.disabled = false;
+    });
   });
   /* ---------- multi-page v2: order-items from a work page ---------- */
   (function(){
