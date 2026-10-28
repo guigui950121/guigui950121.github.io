@@ -367,5 +367,29 @@
   #backTop.show{display:block;}
   .mp-filter{max-width:1180px;margin:0 auto;padding:10px clamp(20px,5vw,72px) 0;}
   .lightbox img{touch-action:none;}
-  /* 2026-10-28 定制页首屏重叠修复：顶栏是 fixed 悬浮、导航背景向下渐隐透明，定制页首个区块 #pricing 只有 60px 上边距，Pricing 小字顶到了品牌字底下；与 .page-head 的 150px 看齐，只影响定制页 */
-  #pricing{padding-top:150px;}
+  /* 2026-10-28 定制页首屏重叠修复（2026-10-28 晚六项改进时移位）：顶栏 fixed 悬浮、导航背景向下渐隐透明，定制页首个区块只有 60px 上边距会顶到品牌字底下；150px 留白现随首个区块走——此前是 #pricing，六项改进后首个区块改为步骤条 #orderSteps，#pricing 回落到 .section 的 60px */
+  #orderSteps{padding-top:150px;}
+  /* ---------- SpaceX 式六项改进 2026-10-28 晚：首页面板、信任条、最新时间线、定制步骤条、手机菜单 ---------- */
+  .trust-strip{max-width:1180px;margin:0 auto;padding:26px clamp(20px,5vw,72px);display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--dim);font-size:14px;letter-spacing:.08em;}
+  .trust-strip b{color:#fff;font-size:18px;}
+  .latest-list{margin-top:8px;border-top:1px solid var(--line);}
+  .latest-row{display:flex;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line);color:#fff;text-decoration:none;}
+  .latest-row:hover .latest-title{text-decoration:underline;}
+  .latest-date{color:var(--dim);font-size:13px;white-space:nowrap;}
+  .latest-title{flex:1;font-size:16px;line-height:1.6;}
+  .latest-src{color:var(--dim);font-size:13px;white-space:nowrap;}
+  .order-steps{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+  @media (max-width:760px){.order-steps{grid-template-columns:1fr;}}
+  .order-steps li{border:1px solid var(--line);background:var(--panel);padding:18px;}
+  .order-steps li b{display:block;font-size:15px;margin-bottom:6px;}
+  .order-steps li span{color:var(--dim);font-size:13px;line-height:1.7;}
+  .order-perks{margin:18px 0 0;color:var(--dim);font-size:14px;letter-spacing:.06em;line-height:1.8;}
+  .nav-toggle{position:absolute;opacity:0;width:1px;height:1px;}
+  .nav-toggle-label{display:none;}
+  @media (max-width:600px){
+    .sample-strip{font-size:11px;padding:6px 12px;letter-spacing:.14em;}
+    .site-nav{flex-wrap:wrap;}
+    .nav-toggle-label{display:block;margin-left:auto;color:#fff;font-size:14px;letter-spacing:.2em;cursor:pointer;padding:6px 2px;}
+    .nav-links{display:none;width:100%;flex-direction:column;gap:10px;padding-top:12px;}
+    .nav-toggle:checked ~ .nav-links{display:flex;}
+  }
