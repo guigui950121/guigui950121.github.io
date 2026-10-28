@@ -104,7 +104,12 @@
   function closeLb(){ lb.classList.remove("open"); document.body.style.overflow = ""; }
   allPhotos.forEach(function(img){
     img.addEventListener("click", function(){
-      refreshPhotos();
+      var grp = img.getAttribute("data-group");
+      if (grp) {
+        photos = allPhotos.filter(function(p){ return p.getAttribute("data-group") === grp; });
+      } else {
+        refreshPhotos();
+      }
       var i = photos.indexOf(img);
       openLb(i === -1 ? 0 : i);
     });
