@@ -1,0 +1,73 @@
+name: Sync live broadcast
+
+# 网站慢直播 live.json 自动保鲜（2026-10-29 用户批准）。
+# 分工：换场本身保持不变（X 工作室开新场）；本 workflow 只负责“获取＋更新”：
+# 每 10 分钟抓一次账号个人主页，提取当前直播场 ID，跟 live.json 对比，
+# 不一样就更新并提交，GitHub Pages 随后自动发布，网站嵌入自动跟上新场。
+# 保险：抓不到 ID 的那轮不做任何改动（绝不把 live.json 写空）；
+# X 改版导致提取失败时同样跳过，不硬写。
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch current live broadcast id
+        id: live
+        run: |
+          html=$(curl -s --max-time 30 -A "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1" "https://x.com/dayangshu1975" || true)
+          id=$(printf '%s' "$html" | grep -oE '/i/broadcasts/[A-Za-z0-9]{10,}' | head -1 | cut -d/ -f4 || true)
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+          if [ -z "$id" ]; then
+            echo "no live broadcast id found, skip this run"
+          else
+            echo "found live broadcast id: $id"
+          fi
+
+      - name: Update live.json if changed
+        if: steps.live.outputs.id != ''
+        env:
+          NEW_ID: ${{ steps.live.outputs.id }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from datetime import datetime, timezone, timedelta
+          new_id = os.environ["NEW_ID"]
+          with open("live.json", encoding="utf-8") as f:
+              data = json.load(f)
+          old_url = data.get("broadcast_url", "")
+          new_url = "https://x.com/i/broadcasts/" + new_id
+          if old_url == new_url:
+              print("unchanged, nothing to do")
+          else:
+              data["broadcast_url"] = new_url
+              data["status"] = "live"
+              now = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%dT%H:%M+08:00")
+              data["updated"] = now
+              with open("live.json", "w", encoding="utf-8") as f:
+                  json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
+                  f.write("\n")
+              print("updated " + old_url + " -> " + new_url)
+          PY
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet live.json; then
+            echo "live.json unchanged, no commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add live.json
+          git commit -m "自动同步慢直播当前场地址"
+          git push
