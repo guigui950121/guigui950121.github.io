@@ -4620,5 +4620,129 @@
    }
   ],
   "kept_count": 4
+ },
+ {
+  "num": 63,
+  "title": "周三晚上，他在书店里翻新书",
+  "date": "2026-10-29 12:12",
+  "url": "https://mp.weixin.qq.com/s/hhmmvT6EwxGmPSZlxmqbiw",
+  "index": 63,
+  "cover_url": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LLokW7SBlOqynQ1YDVTzX71POORn4ZiasibFK5sKLic0nh2olVoibdJlTzUpGApUevQzwoP0VVXyNFovJRTTRRaCvYSt1cneCcVaus/0?wx_fmt=jpeg",
+  "body_urls": [
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LJMGYUKzg2VmomxZjySia8v61MKoPIzVdLqzRCqyhdXvTejnujDBJLQv6oyvJwBicLtyqxXltOGu3YVmib4spdLiapLLTotPISxjyo/640?from=appmsg",
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LKfAy2ib7IXEWqjKdkqtkBP3b5oWQCspZiaczBDTIz7QFB9P2JibA8wdvwvfwMMJ2oHicTOt5S9Dfus8Jrokyor4kuuWyQGfia9UQLs/640?from=appmsg",
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LLtDfDv84FYgmgZFJ04AczQOw0bqyNeNspHNqJmibfA9B9rYibHot8FhpWN2oaIOdaf3vgIExRM3deb8vnr0eZuwCtnLbl25ibNqU/640?from=appmsg"
+  ],
+  "gallery_urls": [
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LLokW7SBlOqynQ1YDVTzX71POORn4ZiasibFK5sKLic0nh2olVoibdJlTzUpGApUevQzwoP0VVXyNFovJRTTRRaCvYSt1cneCcVaus/0?wx_fmt=jpeg",
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LJMGYUKzg2VmomxZjySia8v61MKoPIzVdLqzRCqyhdXvTejnujDBJLQv6oyvJwBicLtyqxXltOGu3YVmib4spdLiapLLTotPISxjyo/640?from=appmsg",
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LKfAy2ib7IXEWqjKdkqtkBP3b5oWQCspZiaczBDTIz7QFB9P2JibA8wdvwvfwMMJ2oHicTOt5S9Dfus8Jrokyor4kuuWyQGfia9UQLs/640?from=appmsg",
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LLtDfDv84FYgmgZFJ04AczQOw0bqyNeNspHNqJmibfA9B9rYibHot8FhpWN2oaIOdaf3vgIExRM3deb8vnr0eZuwCtnLbl25ibNqU/640?from=appmsg"
+  ],
+  "source": "picturePageInfoList",
+  "body_count": 3,
+  "total_count": 4,
+  "status": "ok",
+  "kept": [
+   {
+    "seq": 2,
+    "url": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LJMGYUKzg2VmomxZjySia8v61MKoPIzVdLqzRCqyhdXvTejnujDBJLQv6oyvJwBicLtyqxXltOGu3YVmib4spdLiapLLTotPISxjyo/640?from=appmsg",
+    "file": "mp63-02.jpg",
+    "w": 1080,
+    "h": 1620,
+    "final_seq": 2,
+    "final_file": "mp63-02.jpg"
+   },
+   {
+    "seq": 3,
+    "url": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LKfAy2ib7IXEWqjKdkqtkBP3b5oWQCspZiaczBDTIz7QFB9P2JibA8wdvwvfwMMJ2oHicTOt5S9Dfus8Jrokyor4kuuWyQGfia9UQLs/640?from=appmsg",
+    "file": "mp63-03.jpg",
+    "w": 1080,
+    "h": 1620,
+    "final_seq": 3,
+    "final_file": "mp63-03.jpg"
+   },
+   {
+    "seq": 4,
+    "url": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LLtDfDv84FYgmgZFJ04AczQOw0bqyNeNspHNqJmibfA9B9rYibHot8FhpWN2oaIOdaf3vgIExRM3deb8vnr0eZuwCtnLbl25ibNqU/640?from=appmsg",
+    "file": "mp63-04.jpg",
+    "w": 1080,
+    "h": 1620,
+    "final_seq": 4,
+    "final_file": "mp63-04.jpg"
+   }
+  ],
+  "excluded": [
+   {
+    "seq": 1,
+    "url": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LLokW7SBlOqynQ1YDVTzX71POORn4ZiasibFK5sKLic0nh2olVoibdJlTzUpGApUevQzwoP0VVXyNFovJRTTRRaCvYSt1cneCcVaus/0?wx_fmt=jpeg",
+    "reason": "cover_crop_duplicate_of_body1",
+    "file": "mp63-01.jpg",
+    "final_file": "mp63-01.jpg"
+   }
+  ],
+  "kept_count": 3
+ },
+ {
+  "num": 64,
+  "title": "周六早上，他在楼下早餐店吃油条",
+  "date": "2026-10-29 00:21",
+  "url": "https://mp.weixin.qq.com/s/j5K7Dn_PRJDJJmdJ3uEAJQ",
+  "index": 64,
+  "cover_url": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LI402Xp1L5iaLV94nNlCic8RyUAYJzzecLPo1OZ3J9xUTYRCic14ntaAU9wVu7DS5bqic2Q9Z3iakCJNaSw9ZliaGaibwBo0lm4Tib63e8/0?wx_fmt=jpeg",
+  "body_urls": [
+   "https://mmbiz.qpic.cn/mmbiz_jpg/12h0Yb048LKkzZibEvYNibwqnPBibwFaEgL4wze6VU9Nia4zrgiahgxguxmdtxaalYseEd1o8ebkAlO56e4Y2WMUw5atERSlanDBZXQt3NVkPuXo/640?from=appmsg",
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LJjXUEgbWClibibuZibkTe4Dd8peePeqVp211DeictTJY9AuqbsNWicnNUSDVVps8CDqU5xiaam9DtKACAG7vtqmvrn6DN5amAwibSRbs/640?from=appmsg",
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LJ6ibqBS73oDeUxM4OuseMjiaryXLVLKCficLhQtXMAPgJIQ1mfoN0zLc5icVXbAXuajwB4OicbrIBad8MFaJqUQs2EoFFlbN2dSM24/640?from=appmsg"
+  ],
+  "gallery_urls": [
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LI402Xp1L5iaLV94nNlCic8RyUAYJzzecLPo1OZ3J9xUTYRCic14ntaAU9wVu7DS5bqic2Q9Z3iakCJNaSw9ZliaGaibwBo0lm4Tib63e8/0?wx_fmt=jpeg",
+   "https://mmbiz.qpic.cn/mmbiz_jpg/12h0Yb048LKkzZibEvYNibwqnPBibwFaEgL4wze6VU9Nia4zrgiahgxguxmdtxaalYseEd1o8ebkAlO56e4Y2WMUw5atERSlanDBZXQt3NVkPuXo/640?from=appmsg",
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LJjXUEgbWClibibuZibkTe4Dd8peePeqVp211DeictTJY9AuqbsNWicnNUSDVVps8CDqU5xiaam9DtKACAG7vtqmvrn6DN5amAwibSRbs/640?from=appmsg",
+   "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LJ6ibqBS73oDeUxM4OuseMjiaryXLVLKCficLhQtXMAPgJIQ1mfoN0zLc5icVXbAXuajwB4OicbrIBad8MFaJqUQs2EoFFlbN2dSM24/640?from=appmsg"
+  ],
+  "source": "picturePageInfoList",
+  "body_count": 3,
+  "total_count": 4,
+  "status": "ok",
+  "kept": [
+   {
+    "seq": 2,
+    "url": "https://mmbiz.qpic.cn/mmbiz_jpg/12h0Yb048LKkzZibEvYNibwqnPBibwFaEgL4wze6VU9Nia4zrgiahgxguxmdtxaalYseEd1o8ebkAlO56e4Y2WMUw5atERSlanDBZXQt3NVkPuXo/640?from=appmsg",
+    "file": "mp64-02.jpg",
+    "w": 1080,
+    "h": 1221,
+    "final_seq": 2,
+    "final_file": "mp64-02.jpg"
+   },
+   {
+    "seq": 3,
+    "url": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LJjXUEgbWClibibuZibkTe4Dd8peePeqVp211DeictTJY9AuqbsNWicnNUSDVVps8CDqU5xiaam9DtKACAG7vtqmvrn6DN5amAwibSRbs/640?from=appmsg",
+    "file": "mp64-03.jpg",
+    "w": 1080,
+    "h": 1620,
+    "final_seq": 3,
+    "final_file": "mp64-03.jpg"
+   },
+   {
+    "seq": 4,
+    "url": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LJ6ibqBS73oDeUxM4OuseMjiaryXLVLKCficLhQtXMAPgJIQ1mfoN0zLc5icVXbAXuajwB4OicbrIBad8MFaJqUQs2EoFFlbN2dSM24/640?from=appmsg",
+    "file": "mp64-04.jpg",
+    "w": 1080,
+    "h": 1347,
+    "final_seq": 4,
+    "final_file": "mp64-04.jpg"
+   }
+  ],
+  "excluded": [
+   {
+    "seq": 1,
+    "url": "https://mmbiz.qpic.cn/sz_mmbiz_jpg/12h0Yb048LI402Xp1L5iaLV94nNlCic8RyUAYJzzecLPo1OZ3J9xUTYRCic14ntaAU9wVu7DS5bqic2Q9Z3iakCJNaSw9ZliaGaibwBo0lm4Tib63e8/0?wx_fmt=jpeg",
+    "reason": "cover_crop_duplicate_of_body1",
+    "file": "mp64-01.jpg",
+    "final_file": "mp64-01.jpg"
+   }
+  ],
+  "kept_count": 3
  }
 ]
