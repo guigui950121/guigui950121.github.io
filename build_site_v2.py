@@ -819,7 +819,7 @@ home_body = hero + """
     </div>
     <p class="sec-note">小红书上新以店主通知为准，视频号发表后自动上站，公众号每日核对同步。</p>
   </section>
-  <div class="trust-strip"><span><b>62</b> 篇公众号</span><span><b>7</b> 篇小红书</span><span><b>__VIDEO_COUNT__</b> 篇视频号</span><span>交期 <b>10 天内</b></span><span>满 <b>¥58</b> 包邮</span><span>满 <b>¥200</b> 送牛奶</span></div>
+  <div class="trust-strip"><span><b>64</b> 篇公众号</span><span><b>7</b> 篇小红书</span><span><b>__VIDEO_COUNT__</b> 篇视频号</span><span>交期 <b>10 天内</b></span><span>满 <b>¥58</b> 包邮</span><span>满 <b>¥200</b> 送牛奶</span></div>
   <section class="section">
     <p class="sec-kicker">Custom Order</p>
     <h2 class="sec-title">定制接单</h2>
@@ -840,10 +840,11 @@ vid_body = ('  <div class="page-head"><h1>视频号作品</h1><p>杨树598 在�
             + filter_block(vid_series) + '\n' + video_html + '\n')
 vid_body = vid_body.replace('__VIDEO_COUNT__', str(_VIDEO_COUNT)).replace('__VIDEO_SHORTS__', _VIDEO_SHORTS)
 
-# --- MP page: all 62 published articles (user choice 2026-10-28 15:27) ---
+# --- MP page: all 64 published articles (user choice 2026-10-28 15:27) ---
 # Source: ~/workspace/website-optimize/mp-published-baseline-20261028.md (read-only check).
 # Links fully resolved 2026-10-28 16:09 (61 unique links, no pending item);
 # 2026-10-28 nightly check added 1 (2026-10-28 21:16, total 62).
+# 2026-10-29 evening check added 2 (2026-10-29 12:12 + 00:21, total 64).
 # Covers: one image per article taken from the article itself (og:image cover,
 # extracted 2026-10-28 via mobile-UA fetch, see extract_mp_images.py and
 # mp-image-map.json); gallery files are site-v2/images/mpXX-YY.jpg where XX
@@ -909,10 +910,10 @@ for _line in _mp_lines.splitlines():
         _seen_urls.add(_url)
         _mp_cards.append('    <div class="mp-card" id="mp%02d" data-year="%s"><div class="mp-text"><h3>%s</h3><p>%s</p><a href="%s" target="_blank" rel="noopener">阅读原文 →</a></div>%s</div>'
                          % (_mp_idx, _date[:4], _html.escape(_title), _date, _url, _strip))
-assert len(_mp_cards) == 62, 'MP cards: %d, expected 62' % len(_mp_cards)
-assert _mp_gal_total == 269, 'MP gallery images: %d, expected 269' % _mp_gal_total  # 285 minus 20 cover-crop duplicates removed 2026-10-28 (cover was a wide crop of the first body photo; gallery now starts with the full photo) + 4 new-article body photos 2026-10-28 (cover crop excluded likewise)
-mp_body = ('  <div class="page-head"><h1>公众号文章</h1><p>公众号「杨树598」已发表的 62 篇，按发表时间从新到旧排列，点开在公众号内阅读原文。'
-           '正文不全文搬到站里。62 篇阅读原文链接已全部确认。点卡片里的图片，可以看本篇的全部图片，左右滑动只在本篇里切换。以后新发表的文章由每日核对自动追加到这里。</p></div>\n'
+assert len(_mp_cards) == 64, 'MP cards: %d, expected 64' % len(_mp_cards)
+assert _mp_gal_total == 275, 'MP gallery images: %d, expected 275' % _mp_gal_total  # 285 minus 20 cover-crop duplicates removed 2026-10-28 (cover was a wide crop of the first body photo; gallery now starts with the full photo) + 4 new-article body photos 2026-10-28 (cover crop excluded likewise) + 6 new-article body photos 2026-10-29
+mp_body = ('  <div class="page-head"><h1>公众号文章</h1><p>公众号「杨树598」已发表的 64 篇，按发表时间从新到旧排列，点开在公众号内阅读原文。'
+           '正文不全文搬到站里。64 篇阅读原文链接已全部确认。点卡片里的图片，可以看本篇的全部图片，左右滑动只在本篇里切换。以后新发表的文章由每日核对自动追加到这里。</p></div>\n'
            '  <div class="mp-filter"><div class="filter-wrap"><div class="filter-group" role="group" aria-label="按年份筛选">\n'
            '      <span class="filter-label">年份</span>\n'
            '      <button type="button" class="chip active" data-year-filter="all">全部</button>\n'
