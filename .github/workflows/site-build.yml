@@ -19,6 +19,52 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Generate missing video variants
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 - <<'PYEOF'
+          import json, os, sys
+          from PIL import Image
+          with open('videos.json', encoding='utf-8') as f:
+              videos = json.load(f)
+          vids = []
+          for v in videos:
+              for vid, _alt in v.get('imgs', []):
+                  if vid not in vids:
+                      vids.append(vid)
+          specs = [('s', 720), ('l', 1344)]
+          generated = []
+          for vid in vids:
+              src = 'images/%s.jpg' % vid
+              for suffix, width in specs:
+                  for ext, fmt, kw in (('jpg', 'JPEG', {'quality': 82}),
+                                       ('webp', 'WEBP', {'quality': 80})):
+                      path = 'images/%s-%s.%s' % (vid, suffix, ext)
+                      if os.path.exists(path):
+                          continue
+                      if not os.path.exists(src):
+                          continue
+                      im = Image.open(src).convert('RGB')
+                      if im.width > width:
+                          im = im.resize((width, int(im.height * width / im.width)), Image.LANCZOS)
+                      im.save(path, fmt, **kw)
+                      generated.append(path)
+          with open('generated-variants.txt', 'w', encoding='utf-8') as f:
+              f.write('\n'.join(generated))
+          missing = []
+          for vid in vids:
+              for suffix, _w in specs:
+                  for ext in ('jpg', 'webp'):
+                      path = 'images/%s-%s.%s' % (vid, suffix, ext)
+                      if not os.path.exists(path):
+                          missing.append(path)
+          if missing:
+              print('MISSING video variants (build fails):')
+              for m in missing:
+                  print('  ' + m)
+              sys.exit(1)
+          print('video variants OK: %d vids, %d newly generated' % (len(vids), len(generated)))
+          PYEOF
       - name: Build pages
         env:
           SITE_ROOT: ${{ github.workspace }}
@@ -28,5 +74,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -f generated-variants.txt ]; then xargs -r -a generated-variants.txt git add --; fi
           git add index.html xiaohongshu.html shipinhao.html gongzhonghao.html dingzhi.html style.css site.js order.js sitemap.xml robots.txt
           git diff --cached --quiet && echo "site unchanged, no commit" || git commit -m "自动重建网站页面" && git push
