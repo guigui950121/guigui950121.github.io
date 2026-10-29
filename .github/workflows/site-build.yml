@@ -1,0 +1,32 @@
+name: Build site from data
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'build_site_v2.py'
+      - 'videos.json'
+      - 'mp-published-baseline-20261028.md'
+      - 'mp-gallery-final.json'
+      - 'site/index.html'
+      - 'images/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build pages
+        env:
+          SITE_ROOT: ${{ github.workspace }}
+          SITE_OUT: ${{ github.workspace }}
+        run: python3 build_site_v2.py
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html xiaohongshu.html shipinhao.html gongzhonghao.html dingzhi.html style.css site.js order.js sitemap.xml robots.txt
+          git diff --cached --quiet && echo "site unchanged, no commit" || git commit -m "自动重建网站页面" && git push
